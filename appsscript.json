@@ -1,0 +1,20 @@
+{
+  "timeZone": "Etc/UTC",
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "FetchJson",
+        "libraryId": "1VwgEzQRhb6igER9A5Jd_yXHaTBUG1tEBXxt6_W5UudkyUAeFT9T0vY_N",
+        "version": "4"
+      },
+      {
+        "userSymbol": "GasUtils",
+        "version": "1",
+        "libraryId": "1VdfWp4y2gBNXWDYLKlDNK1DCrApsuYNbWcbIJP476sbXaREoiTnvSyv0",
+        "developmentMode": false
+      }
+    ]
+  }
+}

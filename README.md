@@ -52,7 +52,7 @@ For each API call pass the configuration parameters:
 
 ```javascript
 const config = {
-  isProduction: true, // or false
+  isProduction: true, // or false for SANDBOX
   apiKey: ASAAS_API_KEY,
 };
 ```
@@ -67,6 +67,8 @@ Methods:
 - `CustomerRead(id, config)`
 - `CustomerUpdate(id, customer, config)`
 - `CustomerRemove(id, config)`
+
+The `id` is the returned by the `CustomerCreate` method.
 
 The customer object is given by:
 
@@ -111,6 +113,8 @@ Methods:
 - `PaymentRead(id, config)`
 - `PaymentUpdate(id, payment, config)`
 - `PaymentRemove(id, config)`
+
+The `id` is the returned by the `PaymentCreate` method.
 
 Utilities:
 

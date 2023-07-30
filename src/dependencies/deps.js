@@ -1,3 +1,3 @@
 const deps = {
-  FetchJson,
+  fetchApp: FetchJson,
 };

@@ -30,7 +30,7 @@ function CustomerCreate(customer, config, deps) {
   const headers = getHeaders(config);
   const request = buildCustomerRequest(customer);
 
-  const response = deps.FetchJson.Post(`${baseUrl}/${customersEndpoint}`, request, (options = { headers }));
+  const response = deps.fetchApp.Post(`${baseUrl}/${customersEndpoint}`, request, (options = { headers }));
   const { id, dateCreated, deleted, foreignCustomer } = response;
 
   return { id, dateCreated, deleted, foreignCustomer };
@@ -40,7 +40,7 @@ function CustomerRead(id, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 
-  const response = deps.FetchJson.Get(`${baseUrl}/${customersEndpoint}/${id}`, (options = { headers }));
+  const response = deps.fetchApp.Get(`${baseUrl}/${customersEndpoint}/${id}`, (options = { headers }));
   const { name, cpfCnpj, foreignCustomer, dateCreated, deleted, canEdit, cannotEditReason } = response;
 
   return {
@@ -59,7 +59,7 @@ function CustomerUpdate(id, customer, config, deps) {
   const headers = getHeaders(config);
   const request = buildCustomerRequest(customer);
 
-  const response = deps.FetchJson.Post(`${baseUrl}/${customersEndpoint}/${id}`, request, (options = { headers }));
+  const response = deps.fetchApp.Post(`${baseUrl}/${customersEndpoint}/${id}`, request, (options = { headers }));
 
   return response;
 }
@@ -68,7 +68,7 @@ function CustomerRemove(id, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 
-  const response = deps.FetchJson.Remove(`${baseUrl}/${customersEndpoint}/${id}`, (options = { headers }));
+  const response = deps.fetchApp.Remove(`${baseUrl}/${customersEndpoint}/${id}`, (options = { headers }));
   const { deleted } = response;
 
   return { deleted };
@@ -78,7 +78,7 @@ function CustomerGetByDocumentId(documentId, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 
-  const response = deps.FetchJson.Get(`${baseUrl}/${customersEndpoint}?cpfCnpj=${documentId}`, (options = { headers }));
+  const response = deps.fetchApp.Get(`${baseUrl}/${customersEndpoint}?cpfCnpj=${documentId}`, (options = { headers }));
 
   return response;
 }

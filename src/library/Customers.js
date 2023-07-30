@@ -43,7 +43,15 @@ function CustomerRead(id, config, FetchJson) {
   const response = FetchJson.Get(`${baseUrl}/${customersEndpoint}/${id}`, (options = { headers }));
   const { name, cpfCnpj, foreignCustomer, dateCreated, deleted, canEdit, cannotEditReason } = response;
 
-  return { name, cpfCnpj, foreignCustomer, dateCreated, deleted, canEdit, cannotEditReason };
+  return {
+    name,
+    cpfCnpj,
+    foreignCustomer,
+    dateCreated,
+    deleted,
+    canEdit,
+    cannotEditReason,
+  };
 }
 
 function CustomerUpdate(id, customer, config, FetchJson) {

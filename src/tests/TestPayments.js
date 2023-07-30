@@ -11,7 +11,13 @@ function paymentsIntegrationTest() {
   const updateResponse = PaymentsIntegrationTest.update(id, customerId);
   const deleteResponse = PaymentsIntegrationTest.remove(id);
 
-  console.log({ customerId, createResponse, readResponse, updateResponse, deleteResponse });
+  console.log({
+    customerId,
+    createResponse,
+    readResponse,
+    updateResponse,
+    deleteResponse,
+  });
 }
 
 function getBoletoBarCodeTest() {

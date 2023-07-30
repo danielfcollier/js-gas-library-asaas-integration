@@ -45,4 +45,8 @@ bundle:
 	@cat ${BUNDLE}"/main.js" | grep ^function | awk 'BEGIN {print "module.exports = {"} {split($$2, functionName, "("); print "  "functionName[1]","} END {print "}" }' >> ${BUNDLE}"/main.js"
 
 test:
-	node test.js
+	@node --test
+
+lint:
+	@npx prettier ${SRC} --write
+	@npx eslint --fix --quiet ${SRC}

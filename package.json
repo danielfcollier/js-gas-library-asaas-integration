@@ -7,6 +7,9 @@
   "license": "ISC",
   "devDependencies": {
     "@google/clasp": "^2.4.2",
-    "@types/google-apps-script": "^1.0.53"
+    "@types/google-apps-script": "^1.0.53",
+    "eslint": "^8.46.0",
+    "eslint-config-google": "^0.14.0",
+    "prettier": "3.0.0"
   }
 }

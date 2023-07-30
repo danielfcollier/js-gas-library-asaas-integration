@@ -26,13 +26,16 @@ pull: update-clasp-json
 	@git pull
 
 diff:
-	@diff -ru ${SRC} ${DEPLOY} --suppress-common-lines || exit 0
+	@diff -ru ${DEPLOY} ${SRC} --suppress-common-lines || exit 0
 
 deployments:
 	@clasp deployments
 
-update-versions:
-	@clasp deployments | egrep -i '@[0-9]' | awk '{print substr($$3, 2, 1)}'
+update-version:
+	VERSION:=$(shell clasp deployments | egrep -i '@[0-9]' | awk '{print substr($$3, 2, 1)}')
+	@cat README.md |  awk -v version=${VERSION} '{ if (match($$0, "version")) { sub(/"[0-9]"/, "\""version"\"", $$0); print $$0; } else {print $$0;}}' > .tmp.README.md
+	@cat .tmp.README.md > README.md
+	@rm .tmp.README.md
 
 update-deploy:
 	@rm -rf ${DEPLOY}
@@ -44,9 +47,9 @@ bundle:
 	@find ${SRC} -type f -not -path "**/tests/*" -not -path "**/test/*" -not -iname "**deps.js"| xargs cat > ${BUNDLE}"/main.js"
 	@cat ${BUNDLE}"/main.js" | grep ^function | awk 'BEGIN {print "module.exports = {"} {split($$2, functionName, "("); print "  "functionName[1]","} END {print "}" }' >> ${BUNDLE}"/main.js"
 
-test:
-	@node --test
-
 lint:
 	@npx prettier ${SRC} --write
 	@npx eslint --fix --quiet ${SRC}
+
+update-test: lint bundle
+	@-npm test

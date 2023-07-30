@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
+  "scripts": {
+    "test": "node --test"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {

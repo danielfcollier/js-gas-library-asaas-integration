@@ -1,15 +1,15 @@
 function paymentsIntegrationTest() {
   const getCustomerId = () => {
-    const { id } = CustomersIntegrationTest.create();
+    const { id } = CustomersIntegrationTest.create(deps);
     return id;
   };
   const customerId = getCustomerId();
 
-  const createResponse = PaymentsIntegrationTest.create(customerId);
+  const createResponse = PaymentsIntegrationTest.create(customerId, deps);
   const { id } = createResponse;
-  const readResponse = PaymentsIntegrationTest.read(id);
-  const updateResponse = PaymentsIntegrationTest.update(id, customerId);
-  const deleteResponse = PaymentsIntegrationTest.remove(id);
+  const readResponse = PaymentsIntegrationTest.read(id, deps);
+  const updateResponse = PaymentsIntegrationTest.update(id, customerId, deps);
+  const deleteResponse = PaymentsIntegrationTest.remove(id, deps);
 
   console.log({
     customerId,
@@ -26,7 +26,7 @@ function getBoletoBarCodeTest() {
     isProduction: true,
     apiKey: "TEST_API_KEY_PRODUCTION",
   };
-  const boletoBarCode = PaymentGetBarCode(id, config);
+  const boletoBarCode = PaymentGetBarCode(id, config, deps);
 
   console.log({ boletoBarCode });
 }
@@ -47,23 +47,23 @@ class PaymentsIntegrationTest {
     };
   }
 
-  static create(customerId) {
-    return PaymentCreate({ ...this.getPayment(), customer: customerId }, this.getConfig());
+  static create(customerId, deps) {
+    return PaymentCreate({ ...this.getPayment(), customer: customerId }, this.getConfig(), deps);
   }
 
-  static read(id) {
-    return PaymentRead(id, this.getConfig());
+  static read(id, deps) {
+    return PaymentRead(id, this.getConfig(), deps);
   }
 
-  static update(id, customerId) {
-    return PaymentUpdate(id, { ...this.getPayment(), value: 200, customer: customerId }, this.getConfig());
+  static update(id, customerId, deps) {
+    return PaymentUpdate(id, { ...this.getPayment(), value: 200, customer: customerId }, this.getConfig(), deps);
   }
 
-  static remove(id) {
-    return PaymentRemove(id, this.getConfig());
+  static remove(id, deps) {
+    return PaymentRemove(id, this.getConfig(), deps);
   }
 
-  static getBoletoBarCode(id) {
-    return PaymentGetBarCode(id, this.getConfig());
+  static getBoletoBarCode(id, deps) {
+    return PaymentGetBarCode(id, this.getConfig(), deps);
   }
 }

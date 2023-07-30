@@ -1,14 +1,14 @@
 function customersIntegrationTest() {
-  const { id } = CustomersIntegrationTest.create();
-  const customer = CustomersIntegrationTest.read(id);
-  const updatedCustomer = CustomersIntegrationTest.update(id);
-  const { deleted } = CustomersIntegrationTest.remove(id);
+  const { id } = CustomersIntegrationTest.create(deps);
+  const customer = CustomersIntegrationTest.read(id, deps);
+  const updatedCustomer = CustomersIntegrationTest.update(id, deps);
+  const { deleted } = CustomersIntegrationTest.remove(id, deps);
 
   console.log({ id, customer, updatedCustomer, deleted });
 }
 
 function customerGetByDocumentIdTest() {
-  const response = CustomersIntegrationTest.getByDocumentId("00321278127");
+  const response = CustomersIntegrationTest.getByDocumentId("00321278127", deps);
   console.log(response);
 }
 
@@ -31,23 +31,23 @@ class CustomersIntegrationTest {
     };
   }
 
-  static create() {
-    return CustomerCreate(this.getCustomer(), this.getConfig());
+  static create(deps) {
+    return CustomerCreate(this.getCustomer(), this.getConfig(), deps);
   }
 
-  static read(id) {
-    return CustomerRead(id, this.getConfig());
+  static read(id, deps) {
+    return CustomerRead(id, this.getConfig(), deps);
   }
 
-  static update(id) {
-    return CustomerUpdate(id, this.getCustomer(), this.getConfig());
+  static update(id, deps) {
+    return CustomerUpdate(id, this.getCustomer(), this.getConfig(), deps);
   }
 
-  static remove(id) {
-    return CustomerRemove(id, this.getConfig());
+  static remove(id, deps) {
+    return CustomerRemove(id, this.getConfig(), deps);
   }
 
-  static getByDocumentId(documentId) {
-    return CustomerGetByDocumentId(documentId, this.getConfig());
+  static getByDocumentId(documentId, deps) {
+    return CustomerGetByDocumentId(documentId, this.getConfig(), deps);
   }
 }

@@ -1,1 +1,3 @@
-const fetchJson = fetchJson;
+const deps = {
+  FetchJson,
+};

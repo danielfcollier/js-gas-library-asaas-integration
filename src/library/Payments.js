@@ -17,49 +17,49 @@ function buildPaymentRequest(payment) {
   };
 }
 
-function PaymentCreate(payment, config) {
+function PaymentCreate(payment, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
   const request = buildPaymentRequest(payment);
 
-  const response = FetchJson.Post(`${baseUrl}/${paymentsEndpoint}`, request, (options = { headers }));
-  const { id, status } = response;
+  const response = deps.FetchJson.Post(`${baseUrl}/${paymentsEndpoint}`, request, (options = { headers }));
+  const { id, status, pixQrCodeId } = response;
 
-  return { id, status };
+  return { id, status, pixQrCodeId };
 }
 
-function PaymentRead(id, config) {
+function PaymentRead(id, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 
-  const response = FetchJson.Get(`${baseUrl}/${paymentsEndpoint}/${id}`, (options = { headers }));
-  const { value, netValue, clientPaymentDate, paymentDate, deleted, status } = response;
+  const response = deps.FetchJson.Get(`${baseUrl}/${paymentsEndpoint}/${id}`, (options = { headers }));
+  const { value, netValue, clientPaymentDate, paymentDate, deleted, status, externalReference, invoiceNumber } = response;
 
-  return { value, netValue, clientPaymentDate, paymentDate, deleted, status };
+  return { value, netValue, clientPaymentDate, paymentDate, deleted, status, externalReference, invoiceNumber };
 }
 
-function PaymentUpdate(id, payment, config) {
+function PaymentUpdate(id, payment, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
   const request = buildPaymentRequest(payment);
 
-  const response = FetchJson.Post(`${baseUrl}/${paymentsEndpoint}/${id}`, request, (options = { headers }));
+  const response = deps.FetchJson.Post(`${baseUrl}/${paymentsEndpoint}/${id}`, request, (options = { headers }));
   const { value, description, status } = response;
 
   return { value, description, status };
 }
 
-function PaymentRemove(id, config) {
+function PaymentRemove(id, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 
-  const response = FetchJson.Remove(`${baseUrl}/${paymentsEndpoint}/${id}`, (options = { headers }));
+  const response = deps.FetchJson.Remove(`${baseUrl}/${paymentsEndpoint}/${id}`, (options = { headers }));
   const { deleted } = response;
 
   return { deleted };
 }
 
-function PaymentGetBarCode(id, config) {
+function PaymentGetBarCode(id, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
   const response = FetchJson.Get(`${baseUrl}/${paymentsEndpoint}/${id}/identificationField`, (options = { headers }));
@@ -68,10 +68,10 @@ function PaymentGetBarCode(id, config) {
   return identificationField;
 }
 
-function PaymentGetPixCode(id, config) {
+function PaymentGetPixCode(id, config, deps) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
-  const response = FetchJson.Get(`${baseUrl}/${paymentsEndpoint}/${id}/pixQrCode`, (options = { headers }));
+  const response = deps.FetchJson.Get(`${baseUrl}/${paymentsEndpoint}/${id}/pixQrCode`, (options = { headers }));
 
   return response;
 }

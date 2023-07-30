@@ -36,7 +36,7 @@ function CustomerCreate(customer, config) {
   return { id, dateCreated, deleted, foreignCustomer };
 }
 
-function CustomerRead(id, config) {
+function CustomerRead(id, config, FetchJson) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 
@@ -46,7 +46,7 @@ function CustomerRead(id, config) {
   return { name, cpfCnpj, foreignCustomer, dateCreated, deleted, canEdit, cannotEditReason };
 }
 
-function CustomerUpdate(id, customer, config) {
+function CustomerUpdate(id, customer, config, FetchJson) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
   const request = buildCustomerRequest(customer);
@@ -56,7 +56,7 @@ function CustomerUpdate(id, customer, config) {
   return response;
 }
 
-function CustomerRemove(id, config) {
+function CustomerRemove(id, config, FetchJson) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 
@@ -66,7 +66,7 @@ function CustomerRemove(id, config) {
   return { deleted };
 }
 
-function CustomerGetByDocumentId(documentId, config) {
+function CustomerGetByDocumentId(documentId, config, FetchJson) {
   const baseUrl = getBaseUrl(config);
   const headers = getHeaders(config);
 

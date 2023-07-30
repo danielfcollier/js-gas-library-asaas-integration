@@ -2,6 +2,7 @@ DEPLOY = ".deploy"
 NODE = ".node_modules"
 SRC = "src"
 BUNDLE = ".bundle"
+TEST = "test"
 
 install:
 	@npm install
@@ -44,12 +45,14 @@ update-deploy:
 bundle:
 	@rm -rf ${BUNDLE}
 	@-mkdir -p ${BUNDLE}
-	@find ${SRC} -type f -not -path "**/tests/*" -not -path "**/test/*" -not -iname "**deps.js"| xargs cat > ${BUNDLE}"/main.js"
+	@find ${SRC} -type f -not -path "**/tests/*" -not -path "**/test/*" -not -iname "**deps.js" -not -iname "appsscript.json" | xargs cat > ${BUNDLE}"/main.js"
 	@cat ${BUNDLE}"/main.js" | grep ^function | awk 'BEGIN {print "module.exports = {"} {split($$2, functionName, "("); print "  "functionName[1]","} END {print "}" }' >> ${BUNDLE}"/main.js"
 
 lint:
 	@npx prettier ${SRC} --write
 	@npx eslint --fix --quiet ${SRC}
+	@npx prettier ${TEST} --write
+	@npx eslint --fix --quiet ${TEST}
 
-update-test: lint bundle
+tests: lint bundle
 	@-npm test

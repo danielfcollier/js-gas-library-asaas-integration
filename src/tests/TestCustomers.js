@@ -12,6 +12,13 @@ function customerGetByDocumentIdTest() {
   console.log(response);
 }
 
+function customerRemoveCustomersByDocumentId() {
+  const response = CustomersIntegrationTest.getByDocumentId("00321278127", deps);
+  response.data.forEach((customer) => {
+    CustomersIntegrationTest.remove(customer.id, deps);
+  });
+}
+
 class CustomersIntegrationTest {
   static getConfig() {
     return {
